@@ -17,7 +17,6 @@ public class Producer4FanoutExchange {
 
         // 消费端与生产端的 routing key 必须完全一致
 
-
         // 1 创建ConnectionFactory
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("106.15.121.10");
