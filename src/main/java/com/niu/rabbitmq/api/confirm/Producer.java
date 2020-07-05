@@ -30,7 +30,6 @@ public class Producer {
         // 3. 创建channel
         Channel channel = connection.createChannel();
 
-
         // 4. 指定消息投递模式: 消息确认模式
         channel.confirmSelect();
 
@@ -38,7 +37,6 @@ public class Producer {
         String exchangeName = "test_confirm_exchange";
         String routingKey = "confirm.save";
         String msg = "Hello Send Confirm Msg";
-        channel.basicPublish(exchangeName, routingKey, null, msg.getBytes());
 
         // 6. 添加确认监听
         channel.addConfirmListener(new ConfirmListener() {
@@ -46,13 +44,20 @@ public class Producer {
             public void handleAck(long deliveryTag, boolean multiple) throws IOException {
                 // 消息成功会进入
                 System.out.println("-----------success------------");
+                System.out.println(deliveryTag);
             }
 
             @Override
             public void handleNack(long deliveryTag, boolean multiple) throws IOException {
                 // 消息失败会进入
                 System.out.println("-----------fail------------");
+                System.out.println(deliveryTag);
             }
         });
+
+        for (int i = 10; i > 0; i--) {
+            System.out.println(channel.getNextPublishSeqNo());
+            channel.basicPublish(exchangeName, routingKey, null, msg.getBytes());
+        }
     }
 }
