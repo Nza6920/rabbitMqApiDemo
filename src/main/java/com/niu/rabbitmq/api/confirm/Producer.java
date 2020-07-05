@@ -10,12 +10,12 @@ import java.util.concurrent.TimeoutException;
 
 /**
  * 生产者
+ *
  * @Description: TODO
  * @Author nza
  * @Date 2020/7/5
  **/
 public class Producer {
-
 
     public static void main(String[] args) throws IOException, TimeoutException {
         // 1. 创建ConnectionFactory
